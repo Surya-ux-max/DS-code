@@ -1,0 +1,60 @@
+Singly linked list with Name
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+// Node structure
+struct Node {
+    char name[100];         // string (fixed-size)
+    struct Node* next;
+};
+
+// Function to create a new node
+struct Node* CreateNode(const char* name) {
+    struct Node* newNode = (struct Node*)malloc(sizeof(struct Node));
+    strcpy(newNode->name, name);   // copy string into node
+    newNode->next = NULL;
+    return newNode;
+}
+
+// Insert at the end
+void insert(struct Node** head, const char* name) {
+    struct Node* newNode = CreateNode(name);
+
+    if (*head == NULL) {
+        *head = newNode;
+        return;
+    }
+
+    struct Node* temp = *head;
+    while (temp->next != NULL) {
+        temp = temp->next;
+    }
+    temp->next = newNode;
+}
+
+// Print the list
+void printlist(struct Node* head) {
+    struct Node* temp = head;
+    while (temp != NULL) {
+        printf("%s -> ", temp->name);
+        temp = temp->next;
+    }
+    printf("NULL\n");
+}
+
+int main() {
+    struct Node* head = NULL;
+
+    insert(&head, "Surya");
+    insert(&head, "Abishek");
+    insert(&head, "Nikky");
+    insert(&head, "Shewak");
+    insert(&head, "Guha");
+
+    printf("Linked List of Names: ");
+    printlist(head);
+
+    return 0;
+}
